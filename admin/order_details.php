@@ -18,7 +18,7 @@ $order = $action->selectRow($sql,$param);
                       Client: <b><?= $order['cli_phone'];?></b><br>
                       Code: <b><?= $order['ord_code'];?></b><br>
                       Table: <b><?= $order['tab_name'];?></b><br>
-                      Instant Pick: <b><?= $order['ord_isPick']==1?'Yes':'No';?></b><br>
+                      Instant Pick: <b><?= $order['ord_isPick']==0?'Yes':'No';?></b><br>
                       Quantity: <b><?= $order['totQuantity'];?></b><br>
                       Price: <b><?= number_format($order['price'],2);?> Rwf</b><br>
                       Message: <b><?= $order['ord_comment'];?></b><br>
