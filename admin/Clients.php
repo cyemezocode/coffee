@@ -1,33 +1,5 @@
 <?php require 'header.php'; ?>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Client</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form class="forms-sample">
-                      <div class="form-group">
-                        <label for="exampleInputclientyId">ClientId</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="ClientId">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputClinentPhone">Client Phone</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Client Phone">
-                      </div>
-                    </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -36,84 +8,34 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Clients</h4>
+                      <h4 class="card-title mb-sm-0">Our Clients</h4>
                     </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
                         <thead>
                           <tr>
-                            <th class="font-weight-bold">Store ID</th>
-                            <th class="font-weight-bold">Amount</th>
-                            <th class="font-weight-bold">Gateway</th>
-                            <th class="font-weight-bold">Created at</th>
-                            <th class="font-weight-bold">Paid at</th>
-                            <th class="font-weight-bold">Status</th>
+                            <th class="font-weight-bold">Client Phone</th>
+                            <th class="font-weight-bold">Code</th>
+                            <th class="font-weight-bold">Time</th>
                           </tr>
                         </thead>
                         <tbody>
+                          
+                        <?php
+                                      $sql = "SELECT * from orders,client where ord_status=? and cli_id=ord_client  group by ord_code order by ord_id asc";
+                                      $param = array(0);
+                                      $datas = $action->selectRows($sql,$param);
+                                      $total = 0;
+                                      foreach ($datas as $key => $data) {
+                                    ?>
                           <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face1.jpg" alt="profile image"> Katie Holmes
-                            </td>
-                            <td>$3621</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>04 Jun 2019</td>
-                            <td>18 Jul 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
+                            <td><?= $data['cli_phone'];?></td>
+                            <td><?= $data['ord_code'];?></td>
+                            <td><?= $data['ord_time'];?></td>
                           </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face2.jpg" alt="profile image"> Minnie Copeland
-                            </td>
-                            <td>$6245</td>
-                            <td><img src="images/dashboard/paypal.png" alt="alipay" class="gateway-icon mr-2"> Paypal</td>
-                            <td>25 Sep 2019</td>
-                            <td>07 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-danger p-2">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face3.jpg" alt="profile image"> Rodney Sims
-                            </td>
-                            <td>$9265</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>12 dec 2019</td>
-                            <td>26 Aug 2019</td>
-                            <td>
-                              <div class="badge badge-warning p-2">Failed</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face4.jpg" alt="profile image"> Carolyn Barker
-                            </td>
-                            <td>$2263</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>30 Sep 2019</td>
-                            <td>20 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
-                          </tr>
+                          <?php } ?>
                         </tbody>
                       </table>
-                    </div>
-                    <div class="d-flex mt-4 flex-wrap">
-                      <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                      <nav class="ml-auto">
-                        <ul class="pagination separated pagination-info">
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                          <li class="page-item"><a href="#" class="page-link">2</a></li>
-                          <li class="page-item"><a href="#" class="page-link">3</a></li>
-                          <li class="page-item"><a href="#" class="page-link">4</a></li>
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                        </ul>
-                      </nav>
                     </div>
                   </div>
                 </div>
