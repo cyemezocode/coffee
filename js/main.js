@@ -123,6 +123,12 @@ $('.switch').click(function(){
     $('.menus .'+cl).fadeIn()
 })
 
+$('.togglePick').change(function(){
+    $(this).is(':checked')?$('.pickVal').val(0):$('.pickVal').val(1)
+    $(this).is(':checked')?$('.isPick').hide():$('.isPick').show()
+    $(this).is(':checked')?$('.isPick input').removeAttr('required',true):$('.isPick input').attr('required',true)
+})
+
 $('.addToCart').click(function(){
     var id = $(this).data('id');
     $.ajax({

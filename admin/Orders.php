@@ -1,4 +1,5 @@
 <?php require 'header.php'; ?>
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -7,84 +8,46 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Orders</h4>
+                      <h4 class="card-title mb-sm-0">Served Orders</h4>
                     </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
                         <thead>
                           <tr>
-                            <th class="font-weight-bold">Store ID</th>
-                            <th class="font-weight-bold">Amount</th>
-                            <th class="font-weight-bold">Gateway</th>
-                            <th class="font-weight-bold">Created at</th>
-                            <th class="font-weight-bold">Paid at</th>
-                            <th class="font-weight-bold">Status</th>
+                            <th class="font-weight-bold">Client Phone</th>
+                            <th class="font-weight-bold">Code</th>
+                            <th class="font-weight-bold">Table</th>
+                            <th class="font-weight-bold">Quantity</th>
+                            <th class="font-weight-bold">Time</th>
+                            <th class="font-weight-bold">Waiter</th>
+                            <th class="font-weight-bold">Instant</th>
+                            <th class="font-weight-bold">Action</th>
                           </tr>
                         </thead>
                         <tbody>
+                          
+                        <?php
+                                      $sql = "SELECT *,sum(ord_quantity) as totQuantity from orders,client,tables,admin where ord_status=? and cli_id=ord_client and tab_id=ord_table and ad_id=ord_barista group by ord_code order by ord_id asc";
+                                      $param = array(1);
+                                      $datas = $action->selectRows($sql,$param);
+                                      $total = 0;
+                                      foreach ($datas as $key => $data) {
+                                    ?>
                           <tr>
+                            <td><?= $data['cli_phone'];?></td>
+                            <td><?= $data['ord_code'];?></td>
+                            <td><?= $data['tab_name'];?></td>
+                            <td><?= $data['totQuantity'];?></td>
+                            <td><?= $data['ord_time'];?></td>
+                            <td><?= $data['ad_name'];?></td>
+                            <td><span class="badge badge-<?= $data['ord_isPick']==0?'primary':'warning';?> p-2"><?= $data['ord_isPick']==0?'Yes':'No';?></span></td>
                             <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face1.jpg" alt="profile image"> Katie Holmes
-                            </td>
-                            <td>$3621</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>04 Jun 2019</td>
-                            <td>18 Jul 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
+                              <a href="order_details.php?id=<?= $data['ord_code'];?>" class="badge badge-success p-2">View Details</a>
                             </td>
                           </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face2.jpg" alt="profile image"> Minnie Copeland
-                            </td>
-                            <td>$6245</td>
-                            <td><img src="images/dashboard/paypal.png" alt="alipay" class="gateway-icon mr-2"> Paypal</td>
-                            <td>25 Sep 2019</td>
-                            <td>07 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-danger p-2">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face3.jpg" alt="profile image"> Rodney Sims
-                            </td>
-                            <td>$9265</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>12 dec 2019</td>
-                            <td>26 Aug 2019</td>
-                            <td>
-                              <div class="badge badge-warning p-2">Failed</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face4.jpg" alt="profile image"> Carolyn Barker
-                            </td>
-                            <td>$2263</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>30 Sep 2019</td>
-                            <td>20 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
-                          </tr>
+                          <?php } ?>
                         </tbody>
                       </table>
-                    </div>
-                    <div class="d-flex mt-4 flex-wrap">
-                      <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                      <nav class="ml-auto">
-                        <ul class="pagination separated pagination-info">
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                          <li class="page-item"><a href="#" class="page-link">2</a></li>
-                          <li class="page-item"><a href="#" class="page-link">3</a></li>
-                          <li class="page-item"><a href="#" class="page-link">4</a></li>
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                        </ul>
-                      </nav>
                     </div>
                   </div>
                 </div>

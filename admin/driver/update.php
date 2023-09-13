@@ -120,4 +120,27 @@ if(isset($_POST['table']) and $_POST['table']=='menu'){
 	</div>   
 <?php
 }
+
+if(isset($_POST['table']) and $_POST['table']=='orders'){
+	$sql = "SELECT * from orders where ord_code=?";
+	$param = array($_POST['id']);
+	$res = $action->selectRow($sql,$param);
+?>
+<input type="hidden" name="updateOrder"  value="<?= $_POST['id'];?>">
+	<div class="form-group">
+	<label for="exampleInputcategory">Waiter</label>
+	<select name="waiter" required class="form-control form-control-sm" id="exampleFormControlSelect3">
+		<option value="">Select Category</option>
+	<?php
+		$sql = "SELECT * from admin where ad_type!=?";
+		$param = array('Administrator');
+		$datas = $action->selectRows($sql,$param);
+		foreach ($datas as $key => $data) {
+		?>
+		<option value="<?= $data['ad_id'];?>" <?= $res['ord_barista']==$data['ad_id']?'selected':''; ?>><?= $data['ad_name'];?></option>
+	<?php } ?>
+	</select>
+	</div>
+<?php
+}
 ?>

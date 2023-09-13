@@ -232,8 +232,8 @@ if(isset($_POST['addOrder'])){
 	$res = $action->selectRow($sql,$param);
 	foreach ($_SESSION['cart'] as $key => $cart) {
 		
-		$sql = "INSERT into orders set ord_menu=?,ord_table=?,ord_client=?,ord_time=?,ord_quantity=?,ord_code=?,ord_comment=?";
-		$param = array($cart['id'],$_POST['table'],$res['cli_id'],date('Y-m-d H:i'),$cart['quantity'],$code,$_POST['message']);
+		$sql = "INSERT into orders set ord_menu=?,ord_table=?,ord_client=?,ord_time=?,ord_quantity=?,ord_code=?,ord_comment=?,ord_isPick=?,ord_pickTime=?";
+		$param = array($cart['id'],$_POST['table'],$res['cli_id'],date('Y-m-d H:i'),$cart['quantity'],$code,$_POST['message'],$_POST['pick'],$_POST['date'].' '.$_POST['time']);
 		$action->executeQuery($sql,$param);	
 	}
 	if($res){
@@ -244,6 +244,19 @@ if(isset($_POST['addOrder'])){
 	}else{
 		$response['status'] = 'fail';
 		$response['msg'] = 'Order not Sent';
+	}
+	echo json_encode($response);
+}
+if(isset($_POST['updateOrder'])){
+	$sql = "UPDATE orders set ord_barista=?,ord_status=? where ord_code=?";
+	$param = array($_POST['waiter'],1,$_POST['updateOrder']);
+	$res = $action->executeQuery($sql,$param);
+	if($res){
+		$response['status'] = 'success';
+		$response['msg'] = 'Order updated';
+	}else{
+		$response['status'] = 'fail';
+		$response['msg'] = 'Order was not updated';
 	}
 	echo json_encode($response);
 }

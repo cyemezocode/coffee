@@ -20,6 +20,7 @@
                             <th class="font-weight-bold">Table</th>
                             <th class="font-weight-bold">Quantity</th>
                             <th class="font-weight-bold">Time</th>
+                            <th class="font-weight-bold">Instant</th>
                             <th class="font-weight-bold">Action</th>
                           </tr>
                         </thead>
@@ -38,6 +39,7 @@
                             <td><?= $data['tab_name'];?></td>
                             <td><?= $data['totQuantity'];?></td>
                             <td><?= $data['ord_time'];?></td>
+                            <td><span class="badge badge-<?= $data['ord_isPick']==0?'primary':'warning';?> p-2"><?= $data['ord_isPick']==0?'Yes':'No';?></span></td>
                             <td>
                               <a href="order_details.php?id=<?= $data['ord_code'];?>" class="badge badge-success p-2">View Details</a>
                             </td>
