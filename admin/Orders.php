@@ -27,7 +27,12 @@
                         <tbody>
                           
                         <?php
-                                      $sql = "SELECT *,sum(ord_quantity) as totQuantity from orders,client,tables,admin where ord_status=? and cli_id=ord_client and tab_id=ord_table and ad_id=ord_barista group by ord_code order by ord_id asc";
+                                      $sql = "SELECT *,sum(ord_quantity) as totQuantity from orders,client,tables,admin where ord_status=? and cli_id=ord_client and tab_id=ord_table and ad_id=ord_barista ";
+                                      
+                                      if($_SESSION['type']!='Administrator'){
+                                        $sql.=" and ord_barista='".$_SESSION['user']."'";
+                                      }
+                                      $sql.="  group by ord_code order by ord_id asc";
                                       $param = array(1);
                                       $datas = $action->selectRows($sql,$param);
                                       $total = 0;
