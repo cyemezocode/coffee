@@ -37,7 +37,9 @@ $order = $action->selectRow($sql,$param);
                       <h4 class="card-title mb-sm-0">Order Information</h4>
             <?php if($_SESSION['type']=='Administrator'){ ?>
                       <button class="btn badge badge-success p-2 ml-auto updateData"  data-id="<?= $order['ord_code'];?>" data-table="orders" data-toggle="modal" data-target="#exampleModal"> Assign Waiter</button>
-                      <?php } ?>
+                      <?php }else{ ?>
+                      <button class="btn badge badge-success p-2 ml-auto updateData"  data-id="<?= $order['ord_code'];?>" data-table="mark" data-toggle="modal" data-target="#exampleModal"> Mark as Done</button>
+                      <?php }?>
                     </div>
                     <div class="border-top pt-4">
                       Client: <b><?= $order['cli_phone'];?></b><br>

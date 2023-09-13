@@ -8,7 +8,11 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Served Orders</h4>
+                      <h4 class="card-title mb-sm-0"><?=$_GET['status']==1?'Pending':'Done';?> Orders</h4>
+                      <div class=" ml-auto">
+                        <a href="?status=1" class="btn badge badge-warning p-2">Pending Orders</a>
+                        <a href="?status=2" class="btn badge badge-success p-2">Done Orders</a>
+                      </div>
                     </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
@@ -33,7 +37,7 @@
                                         $sql.=" and ord_barista='".$_SESSION['user']."'";
                                       }
                                       $sql.="  group by ord_code order by ord_id asc";
-                                      $param = array(1);
+                                      $param = array($_GET['status']);
                                       $datas = $action->selectRows($sql,$param);
                                       $total = 0;
                                       foreach ($datas as $key => $data) {

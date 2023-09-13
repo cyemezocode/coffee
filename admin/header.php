@@ -123,7 +123,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Orders.php">
+              <a class="nav-link" href="Orders.php?status=1">
                 <span class="menu-title">Orders</span>
                 <i class="icon-bell menu-icon"></i>
               </a>
