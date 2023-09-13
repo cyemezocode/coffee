@@ -204,6 +204,15 @@ if(isset($_POST['addToCart'])){
 		array_push($_SESSION['cart'],$newItem);
 	}
 	}
+
+	$menuNum = 0;
+	if(isset($_SESSION['cart'])){
+		foreach ($_SESSION['cart'] as $key => $cart) {
+			$menuNum+=$cart['quantity'];
+		}
+	}
+	echo json_encode($menuNum);
+
 }
 
 if(isset($_POST['addOrder'])){

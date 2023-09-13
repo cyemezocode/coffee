@@ -27,11 +27,13 @@
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
                         <h4 class="mb-5">My Order</h4>
                         <?php
-                            foreach ($_SESSION['cart'] as $key => $cart) {
+                                      $totalAmount = 0;
+                                      foreach ($_SESSION['cart'] as $key => $cart) {
                                       $sql = "SELECT * from menu,category where cat_id=men_category and men_id=?";
                                       $param = array($cart['id']);
                                       $datas = $action->selectRows($sql,$param);
                                       foreach ($datas as $key => $data) {
+                                        $totalAmount+=$cart['quantity']*$data['men_price'];
                                     ?>
                                 <div class="col-lg-12 menu menu<?= $data['men_category'];?>">
                                     <div class="d-flex align-items-center">
@@ -47,7 +49,23 @@
                                 </div>
                                 <?php } 
                                 
-                                      }?>
+                                      }
+                        if(isset($_SESSION['cart'])){
+                            ?>
+                            <hr>
+                            <div class="col-lg-12 menu menu<?= $data['men_category'];?>">
+                            <div class="d-flex align-items-center">
+                                <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between pb-2">
+                                        <span>Total Amount</span>
+                                        <span class="text-primary"><?= $totalAmount;?> Rfw</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                       <?php } 
+                                      ?>
+                                
 </div>
 </div>
                     <div class="col-md-6">

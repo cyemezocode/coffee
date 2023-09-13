@@ -130,7 +130,7 @@ $('.addToCart').click(function(){
         method:'POST',
         data:{addToCart:true,id:id},
         success:function(data){
-         console.log(data)
+         $('.cartNum').text(data)
         }
     })
 })

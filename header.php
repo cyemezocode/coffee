@@ -80,6 +80,6 @@
                         </div>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="mycart.php" class="btn btn-primary py-2 px-4">My Cart (<?= $menuNum; ?>)</a>
+                    <a href="mycart.php" class="btn btn-primary py-2 px-4">My Cart (<span class="cartNum"><?= $menuNum; ?></span>)</a>
                 </div>
             </nav>
